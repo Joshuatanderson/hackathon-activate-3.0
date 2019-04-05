@@ -1,3 +1,4 @@
+// import {MarkerClusterer} from './src/markerClusterer'
 
 let map;
 let locations = [];
@@ -11,7 +12,6 @@ let locations = [];
     const response = await fetch('https://data.brla.gov/resource/5rji-ddnu.json?offense=11:140');
     const json = await response.json();
     await fillLocationArray(json);
-    console.log(locations);
   }
 
   fillLocationArray = (json) => {
@@ -30,6 +30,7 @@ let locations = [];
 
     //init map
   initMap = async () => {
+      let markers = []
       let map = new google.maps.Map(document.getElementById('map'), {
           center: {
               lat: 30.407165038,
@@ -37,21 +38,26 @@ let locations = [];
           },
           zoom: 13
       });
+
       
       await requestData();
-    //   new google.maps.Marker({ position: { lat: locations[0][1], lng: locations[0][0] }, map: map }); 
+    //  latitude and longitude
       let marker; 
         for (let i = 0; i < locations.length; i++) {
             let latitude = locations[i][0];
             let longitude = locations[i][1];
-            console.log(latitude);
-            console.log(longitude);
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng({lat: locations[i][1], lng: locations[i][0]}),
             map: map,
             title: `${i}`
         });
+            markers.push(marker);
     }   
+
+        let markerCluster = new MarkerClusterer(map, markers, {
+            imagePath: './src/img/m'
+        });
+
   }
 
-  
+
