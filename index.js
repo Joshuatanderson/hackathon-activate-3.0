@@ -39,19 +39,19 @@ let locations = [];
       });
       
       await requestData();
-      new google.maps.Marker({ position: { lat: -90, lng: 151 }, map: map }); 
-    //   let marker; 
-    //     for (let i = 0; i < locations.length; i++) {
-    //         let latitude = locations[i][0];
-    //         let longitude = locations[i][1];
-    //         console.log(latitude);
-    //         console.log(longitude);
-    //         marker = new google.maps.Marker({
-    //             position: new google.maps.LatLng({lat: locations[i][0], lng: locations[i][1]}),
-    //         map: map,
-    //         title: `${i}`
-    //     });
-    // }   
+    //   new google.maps.Marker({ position: { lat: locations[0][1], lng: locations[0][0] }, map: map }); 
+      let marker; 
+        for (let i = 0; i < locations.length; i++) {
+            let latitude = locations[i][0];
+            let longitude = locations[i][1];
+            console.log(latitude);
+            console.log(longitude);
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng({lat: locations[i][1], lng: locations[i][0]}),
+            map: map,
+            title: `${i}`
+        });
+    }   
   }
 
   
